@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CurlWorker</string>
+    <string name="buttonStart">Start</string>
+    <string name="buttonStop">Stop</string>
+    <string name="StartTime">Start Time: </string>
+    <string name="StopTime">Stop Time: </string>
+    <string name="Status">Status: </string>
+    <string name="LastStatus">Last Status: </string>
+</resources>
