@@ -99,8 +99,8 @@ public class TimeUtil
 		return LocalDateTime.now().getHour();
 	}
 
-	public String getCurrentDate(int dateType)
+	public String getCurrentDate( int dateType )
 	{
-		return this.toString(System.currentTimeMillis(), dateType);
+		return this.toString( System.currentTimeMillis(), dateType );
 	}
 }

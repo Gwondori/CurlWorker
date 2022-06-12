@@ -5,7 +5,8 @@
 extern char *CA_BUNDLE_PATH;
 #endif
 
-enum user_agent_t {
+enum user_agent_t
+{
 	WINDOWS_FIREFOX,
 	MAC_FIREFOX,
 	LINUX_FIREFOX,
@@ -20,4 +21,5 @@ enum user_agent_t {
 
 uint8_t curl_a_website( const char *url, const int ua_id );
 const char *get_curl_version();
+
 #endif

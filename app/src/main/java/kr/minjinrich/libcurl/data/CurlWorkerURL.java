@@ -16,7 +16,7 @@ public class CurlWorkerURL
 		return this.url;
 	}
 
-	public void setUrl(String url)
+	public void setUrl( String url )
 	{
 		this.url = url;
 	}
@@ -26,7 +26,7 @@ public class CurlWorkerURL
 		return this.count;
 	}
 
-	public void setCount(int count)
+	public void setCount( int count )
 	{
 		this.count = count;
 	}

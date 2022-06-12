@@ -2,7 +2,6 @@ package kr.minjinrich.libcurl.data;
 
 public class TargetURLs
 {
-
 	private static CurlWorkerURL[] urls = new CurlWorkerURL[]{
 			new CurlWorkerURL( "https://cr.shopping.naver.com/adcr.nhn?x=cAHKAxBPGbXMNvyZJ%2BdS2f%2F%2F%2Fw%3D%3DsCpcck4ghhhZSMZpyeaC4%2FSpk8xi4AuBIEBPPvkT8P0xRcpA4DLdC2UEVraarHZFvJpVX4W5mDaxdaMSHjpT6ynPErsWT0xaw5zZErzilykvDH%2BVZyv2fpXK9nZ2ECUApW4qWbL2vEyBbDC3wBdyv%2BKEvIjgH1I1PvOKcVH7w5cLaYXaQLB68n449LLsH%2B%2BrUYS5y6vJBzO%2FS5XwYza9gVoZYgwI2fs40XR%2FERq%2FGNyfWK4fiV391hyKbNzjTTmNIXfx%2B%2FWknJrj1K41LNfyjm%2BvEMqwum4IHOUI6z1CEmEmi4%2Fr0lz1oSk9AW8qzFsUvpOr9sPYwajBkeE07IGGkJ5SCPsmGKllbt0kl8XIxCXRucEaetCVX7tzJ0BZvMEMOp%2BvCJ3TYZbWnz%2F3RoEHXOb5NUl4jNm9jIfpoXDI5yIxYDjY%2Bfy9xFJj36UMJc%2BgM2xkETXZ9roqXvpoznFGhOYNYUHgmF00Y2mbw%2FjvFokQ3ZXm0js1U1U9doC3Eplp9eJmfdA%2FTnrF%2Ba3stUAYxHJVWvzpcT2QwB64%2BMO4f1v9EcCtHk2qjDQ5%2FuPgKPniGD2%2FSsp8Lw73yC0QaV8UpcIQwdfs%2FduEJTn9IDoveEbb6PvB%2B292dM6FcTmbuB4%2BKPm2V2WLj0oLfvtXSAq9jPg1QmAmnoJRdq4K9btjkCM0%3D&nvMid=82818610720&catId=50001798" ),
 			new CurlWorkerURL( "https://cr.shopping.naver.com/adcr.nhn?x=qWsG2lgnRsQJJqb2qcRUxf%2F%2F%2Fw%3D%3Ds%2Fdq3oxAQNC8nuEreVKZCLjE3XG6k8ucPwqbsQBSKhmr5W7ymuLbBiAlyRWgPlPI2nXG0kHKAod%2BeR1xiAWuCIjFMEQkK%2FU7s3Os4aM0SnDZnnVvjMgiHMjbFhm4v1%2F1AIa1%2B4vETkRIjW5VqJNvjOK771MY1q607f825Ur9ldSKwb6Uaut2yzXmoBqd2De3%2FYn51VvZMBhGzbQw6wmx6eScX2AUq8VPh3PK%2Fo8l8aTkQ30gwb0ZAWnfX3Zzr1ayRDmJjr6BmZAx%2F3ZUckY3s5O%2B34uyPtpspeJVB9BR%2BW6Qzw6RiK2m4radrqdOg2kX4ueCfFDuywxl3T1PQ6PKMjF5qtMG%2FJ0PUtQjclakIAMgFL05JGycuIUu6HhZNc0eq%2BM4t%2BWuTpGBAWmageLrFymTKM0P4N1ifF7ZZzssQTBbtaPMBYvLoPmozzm6RDwwvRFadIoK8rzHqu58MsZGpJxZNjhbE6c3WdYp2b57gUM7shwZMatSHwYhJ3BHehWjm8%2BguKoHLj%2F%2FKVDLoiKxOaThechKJMA2Jv2wa7DN87dYXNye9k3akbXZcS5H%2FclHeUQwzI8nlnTwFhX0LLw1mmvRUl1RrtBRg76cT6wxEnAtGXgkHQOzkQ6KzHanuw5lAzY6of2Xpggjm6A4Z8HgJhg%3D%3D&nvMid=82818610720&catId=50001798" ),
@@ -76,7 +75,7 @@ public class TargetURLs
 
 			int current_count = targetURL.getCount();
 
-			this.urls[i].setCount( current_count + 1 );
+			this.urls[ i ].setCount( current_count + 1 );
 
 			return url;
 		}

@@ -13,7 +13,7 @@ public class Curl
 {
 	private static final String CA_BUNDLE_NAME = "cacert.pem";
 
-	public native static boolean curl(String pathCACert, String url, int ua_id, String[] opts);
+	public native static boolean curl( String pathCACert, String url, int ua_id, String[] opts );
 	public native static String getCurlVersion();
 
 	// Copy CA Cert in assets folder to internal storage.
