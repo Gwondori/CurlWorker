@@ -163,13 +163,13 @@ public class MainActivity extends AppCompatActivity
 
 		if( null != textViewUAMode )
 		{
-			if( 1 == Curl.getCurrentUAMode() )
-			{
-				textViewUAMode.setText( "Mobile" );
-			}
-			else if( 0 == Curl.getCurrentUAMode() )
+			if( 0 == Curl.getCurrentUAMode() )
 			{
 				textViewUAMode.setText( "PC" );
+			}
+			else //if( 1 == Curl.getCurrentUAMode() )
+			{
+				textViewUAMode.setText( "Mobile" );
 			}
 		}
 	}
@@ -241,11 +241,19 @@ public class MainActivity extends AppCompatActivity
 							{
 								Thread.sleep( rand_time );
 							}
+							else
+							{
+								/*Nothing*/
+							}
 
 							current_cnt += 1;
 						}
 
 						p_current_hour = n_current_hour;
+					}
+					else
+					{
+						/*Nothing*/
 					}
 
 					Thread.sleep( 10000 );
