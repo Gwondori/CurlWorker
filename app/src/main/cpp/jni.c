@@ -1,5 +1,7 @@
+#include <stdbool.h>
 #include <jni.h>
 #include <android/log.h>
+#include "./sys/sys_ctrl.h"
 #include "./curl_ctrl/curl_ctrl.h"
 
 char *CA_BUNDLE_PATH;
@@ -23,4 +25,22 @@ Java_kr_minjinrich_libcurl_modules_Curl_getCurlVersion( JNIEnv *env, jclass claz
 	jstring temp = ( *env )->NewStringUTF( env, get_curl_version());
 
 	return temp;
+}
+
+JNIEXPORT void JNICALL
+Java_kr_minjinrich_libcurl_modules_SysUtils_setAirplaneStatus( JNIEnv *env, jclass clazz, jint value )
+{
+	set_airplane_mode( value );
+}
+
+JNIEXPORT jint JNICALL
+Java_kr_minjinrich_libcurl_modules_SysUtils_getAirplaneStatus( JNIEnv *env, jclass clazz )
+{
+	return get_airplane_status();
+}
+
+JNIEXPORT jint JNICALL
+Java_kr_minjinrich_libcurl_modules_Curl_getCurrentUAMode( JNIEnv *env, jclass clazz )
+{
+	return is_mobile;
 }

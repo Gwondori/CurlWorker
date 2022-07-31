@@ -15,6 +15,7 @@ public class Curl
 
 	public native static boolean curl( String pathCACert, String url, int ua_id, String[] opts );
 	public native static String getCurlVersion();
+	public native static int getCurrentUAMode();
 
 	// Copy CA Cert in assets folder to internal storage.
 	public static void onCopyCACertToInternalStor( Context context )

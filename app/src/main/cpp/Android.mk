@@ -21,7 +21,7 @@ include $(PREBUILT_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_C_INCLUDES :=
 LOCAL_MODULE := curl_ctrl
-LOCAL_SRC_FILES := jni.c curl_ctrl/curl_ctrl.c
+LOCAL_SRC_FILES := jni.c curl_ctrl/curl_ctrl.c sys/sys_ctrl.c
 LOCAL_STATIC_LIBRARIES := libcurl libssl libcrypto
 LOCAL_LDLIBS := -lz -llog
 include $(BUILD_SHARED_LIBRARY)

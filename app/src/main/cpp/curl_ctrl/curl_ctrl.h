@@ -5,6 +5,8 @@
 extern char *CA_BUNDLE_PATH;
 #endif
 
+extern int is_mobile;
+
 enum user_agent_t
 {
 	WINDOWS_FIREFOX,

@@ -11,6 +11,7 @@ import java.util.Random;
 
 import kr.minjinrich.libcurl.data.TargetURLs;
 import kr.minjinrich.libcurl.modules.Curl;
+import kr.minjinrich.libcurl.modules.SysUtils;
 import kr.minjinrich.libcurl.modules.TimeUtil;
 
 // IP 변경(try airplain mode, can rooting)에 대한 방안
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity
 
 			isStart = !isStart;
 		} );
+
+		setTextIsRooted();
+		setTextCurrentUAMode();
 	}
 
 	private void onStartCURLProc()
@@ -123,17 +127,68 @@ public class MainActivity extends AppCompatActivity
 		}
 	}
 
+	private void setTextIsRooted()
+	{
+		TextView textViewRootedStatus = this.findViewById( R.id.textViewRootedStatus );
+
+		if( null != textViewRootedStatus )
+		{
+			textViewRootedStatus.setText( Boolean.toString( SysUtils.isRooted() ) );
+		}
+	}
+
+	private void setTextSuccessCount( int count )
+	{
+		TextView textViewSuccessCount = this.findViewById( R.id.textViewSuccessCount );
+
+		if( null != textViewSuccessCount )
+		{
+			textViewSuccessCount.setText( Integer.toString( count ) );
+		}
+	}
+
+	private void setTextFailedCount( int count )
+	{
+		TextView textViewFailedCount = this.findViewById( R.id.textViewFailedCount );
+
+		if( null != textViewFailedCount )
+		{
+			textViewFailedCount.setText( Integer.toString( count ) );
+		}
+	}
+
+	private void setTextCurrentUAMode()
+	{
+		TextView textViewUAMode = this.findViewById( R.id.textViewCurrentUAMode );
+
+		if( null != textViewUAMode )
+		{
+			if( 1 == Curl.getCurrentUAMode() )
+			{
+				textViewUAMode.setText( "Mobile" );
+			}
+			else if( 0 == Curl.getCurrentUAMode() )
+			{
+				textViewUAMode.setText( "PC" );
+			}
+		}
+	}
+
 	class CurlProc implements Runnable
 	{
 		private int p_current_hour = 0;
 		private int n_current_hour = 0;
 		private int current_cnt = 0;
+		private int success_cnt = 0;
+		private int failed_cnt = 0;
 
 		@Override
 		public void run()
 		{
 			p_current_hour = 0;
 			current_cnt = 0;
+			success_cnt = 0;
+			failed_cnt = 0;
 
 			runOnUiThread( () ->
 			{
@@ -165,6 +220,22 @@ public class MainActivity extends AppCompatActivity
 
 							runOnUiThread( () -> setTextLastStatus( Boolean.toString( res ) ) );
 
+							if( true == res )
+							{
+								success_cnt += 1;
+								runOnUiThread( () -> setTextSuccessCount( success_cnt ) );
+							}
+							else
+							{
+								failed_cnt += 1;
+								runOnUiThread( () -> setTextFailedCount( failed_cnt ) );
+							}
+
+							SysUtils.setAirplaneStatus( 1 );
+							Log.d("CurlProcRunnable", "Current Airplane Status On -> [" + SysUtils.getAirplaneStatus() + "]");
+							SysUtils.setAirplaneStatus( 0 );
+							Log.d("CurlProcRunnable", "Current Airplane Status Off -> [" + SysUtils.getAirplaneStatus() + "]");
+
 							Log.d( "CurlProcRunnable", "Sleep Random Time [" + rand_time + "] / Url [" + url + "] / Result [" + res + "]" );
 							if( ( max_count - 1 ) > i )
 							{
@@ -195,4 +266,6 @@ public class MainActivity extends AppCompatActivity
 			}
 		}
 	}
+
+
 }

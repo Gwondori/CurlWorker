@@ -5,5 +5,9 @@
     <string name="StartTime">Start Time: </string>
     <string name="StopTime">Stop Time: </string>
     <string name="Status">Status: </string>
+    <string name="SuccessCount">Success Count: </string>
+    <string name="FailedCount">Failed Count: </string>
     <string name="LastStatus">Last Status: </string>
+    <string name="RootedStatus">Is Rooted: </string>
+    <string name="CurrentUAMode">Current UA Mode: </string>
 </resources>

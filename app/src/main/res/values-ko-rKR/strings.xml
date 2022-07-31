@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CurlWorker</string>
+    <string name="buttonStart">시작</string>
+    <string name="buttonStop">종료</string>
+    <string name="StartTime">"시작한 시간: "</string>
+    <string name="StopTime">"종료한 시간: "</string>
+    <string name="Status">"상태: "</string>
+    <string name="SuccessCount">"성공횟수: "</string>
+    <string name="FailedCount">"실패횟수: "</string>
+    <string name="LastStatus">"마지막 상태: "</string>
+    <string name="RootedStatus">"루팅 상태: "</string>
+    <string name="CurrentUAMode">"UA 모드: "</string>
+</resources>

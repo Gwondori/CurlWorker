@@ -18,7 +18,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="175dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +78,38 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textViewTitleSuccessCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/SuccessCount" />
+
+            <TextView
+                android:id="@+id/textViewSuccessCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewTitleFailedCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/FailedCount" />
+
+            <TextView
+                android:id="@+id/textViewFailedCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/textViewTitleLastStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,6 +117,38 @@
 
             <TextView
                 android:id="@+id/textViewLastStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewTitleRootedStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/RootedStatus" />
+
+            <TextView
+                android:id="@+id/textViewRootedStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewTitleCurrentUAMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/CurrentUAMode" />
+
+            <TextView
+                android:id="@+id/textViewCurrentUAMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </TableRow>
