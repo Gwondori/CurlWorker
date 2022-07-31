@@ -1,0 +1,106 @@
+#!/bin/sh
+## curl 명령에 대한 테스트를 위해 Shell script 형식으로 제작함: hmmter 프로젝트와 같은 로직이며 쿠키 및 응답 데이터 60% 확인 완료.
+## NOTE:
+##  1. 날짜별 하나의 쿠키(MM_NEW, NNB, NFS????) 사용 - 현재 날짜 확인 => 파일이름 형성 => 파일 체크 => 파일이 없으면 새로운 Cookie 파일 생성 => 파일이 존재하면 그대로 사용
+##  2. 이외 해당 로직에서 입력받는 Parameters: 상품명, MID => 향후 고차원적(슬롯 개념)으로 갈 경우 JsonArray[{product: <상품명, string>, mid: <상품에 대한 MID 값, integer>}, ..., ]로 구성한다.
+##  3. 현재 프로젝트에서의 libcurl은 Header에 대한 대비가 충분히 이루어져있지 않음 => 여러 Header 값들을 2d 배열로 넣을 수 있도록 조치를 취해준다.
+##  4. TypeO, C, A 의미 파악 필요
+
+## Global OPTs
+UA=$(cat ./ua.txt);
+CURRENT_DATE=$(date '+%Y%m%d');
+SEARCH_TEXT="앙리마티스 나무액자";
+MID="83406399808";
+ENCODE_SEARCH_TEXT=$(printf "$SEARCH_TEXT" | python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.stdin.read()))");
+COOKIE_FILENAME="cookie-"$CURRENT_DATE".txt";
+
+# Os(oSs)
+OS="Android";
+VIEWPORT_X="384";
+VIEWPORT_Y="854";
+
+
+## 1st Request
+LEVEL="1st";
+OUTPUT_FILENAME="response-"$LEVEL".txt";
+ACCEPT="text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+ACCEPT_LANG="ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7";
+URL="https://m.naver.com";
+
+curl -H "user-agent:$UA" -H "accept:$ACCEPT" -H "accept-language:$ACCEPT_LANG" --cookie-jar $COOKIE_FILENAME --cookie $COOKIE_FILENAME --output $OUTPUT_FILENAME $URL;
+# cat ./output-cookie.txt;
+sleep 1;
+
+
+## 2nd Request(Get NNB)
+LEVEL="2nd";
+OUTPUT_FILENAME="response-"$LEVEL".gz";
+CURRENT_MILLISECONDS=$(gdate +%s%N | cut -b1-13)
+ACCEPT="image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8";
+CACHE_CONTROL="no-cache";
+CONNECTION="keep-alive";
+HOST="lcs.naver.com";
+PRAGMA="no-cache";
+REFERER="https://m.naver.com";
+
+URL="https://lcs.naver.com/m?u=https://m.naver.com/&e=&os="$OS"&ln=ko-KR&sr="$VIEWPORT_X"x"$VIEWPORT_Y"&pr=1&bw="$VIEWPORT_X"&bh="$VIEWPORT_Y"&c=24&j=N&k=Y&i=&ls=&ect=4g&navigationStart="$CURRENT_MILLISECONDS"&unloadEventStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&unloadEventEnd="$(($CURRENT_MILLISECONDS+$(shuf -i 100-200 -n 1)))"&fetchStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&domainLookupStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&domainLookupEnd="$(($CURRENT_MILLISECONDS+$(shuf -i 100-200 -n 1)))"&connectStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&connectEnd="$(($CURRENT_MILLISECONDS+$(shuf -i 100-200 -n 1)))"&requestStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&responseStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&responseEnd="$(($CURRENT_MILLISECONDS+$(shuf -i 100-200 -n 1)))"&domLoading="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&domInteractive="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&domContentLoadedEventStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&domContentLoadedEventEnd="$(($CURRENT_MILLISECONDS+$(shuf -i 100-200 -n 1)))"&domComplete="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&loadEventStart="$(($CURRENT_MILLISECONDS+$(shuf -i 1-100 -n 1)))"&loadEventEnd="$(($CURRENT_MILLISECONDS+$(shuf -i 100-200 -n 1)))"&first-paint=&first-contentful-paint=&ngt=1&sti=m_main_home&pid=&ugr=newmain&pmd=home&ts="$(($CURRENT_MILLISECONDS+$(shuf -i 100-200 -n 1)))"&EOU=";
+
+curl -H "user-agent:$UA" -H "accept:$ACCEPT" -H "cache-control:$CACHE_CONTROL" -H "connection:$CONNECTION" -H "host:$HOST" -H "pragma:$PRAGMA" -H "referer:$REFERER" --cookie-jar $COOKIE_FILENAME --cookie $COOKIE_FILENAME --output $OUTPUT_FILENAME "$URL"
+# cat ./output-cookie.txt
+sleep 1;
+
+
+## 3rd Request(Search)
+LEVEL="3rd";
+OUTPUT_FILENAME="response-"$LEVEL".gz";
+CACHE_CONTROL="no-cache";
+REFERER="https://m.naver.com";
+PRAGMA="no-cache";
+ACCEPT="text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9";
+
+URL="https://m.search.naver.com/search.naver?sm=mtp_hty.top&where=m&query="$ENCODE_SEARCH_TEXT;
+
+curl -H "user-agent:$UA" -H "accept:$ACCEPT" -H "cache-control:$CACHE_CONTROL" -H "pragma:$PRAGMA" -H "referer:$REFERER" --cookie-jar $COOKIE_FILENAME --cookie $COOKIE_FILENAME --output $OUTPUT_FILENAME "$URL"
+# cat ./output-cookie.txt
+sleep 1;
+
+
+## 4th Request()
+LEVEL="4th";
+OUTPUT_FILENAME="response-"$LEVEL".gz";
+REFERER=$URL;
+
+URL="https://msearch.shopping.naver.com/search/all?query="$ENCODE_SEARCH_TEXT"&bt=-1&frm=MOSCPRO"
+
+curl -H "user-agent:$UA" -H "accept:$ACCEPT" -H "cache-control:$CACHE_CONTROL" -H "pragma:$PRAGMA" -H "referer:$REFERER" --cookie-jar $COOKIE_FILENAME --cookie $COOKIE_FILENAME --output $OUTPUT_FILENAME "$URL"
+# cat ./output-cookie.txt;
+sleep 1;
+
+
+## Start of Loop Proc ==>
+## 5th Request(shopping list page from search text: Check if exist mid in page, or move other page.)
+## Note: 못찾으면 다음페이지(CURRUNT_PAGE+=1;), Loop
+LEVEL="5th";
+OUTPUT_FILENAME="response-"$LEVEL".gz";
+ACCEPT="application/json, text/plain, */*";
+LOGIC="PART";
+CURRUNT_PAGE=1;
+REFERER=$URL;
+
+URL="https://msearch.shopping.naver.com/api/search/all?frm=NVSHPAG&origQuery="$ENCODE_SEARCH_TEXT"&pagingIndex="$CURRUNT_PAGE"&pagingSize=40&productSet=total&query="$ENCODE_SEARCH_TEXT"&sort=rel&viewType=lst"
+
+curl -H "user-agent:$UA" -H "accept:$ACCEPT" -H "cache-control:$CACHE_CONTROL" -H "pragma:$PRAGMA" -H "referer:$REFERER" --cookie-jar $COOKIE_FILENAME --cookie $COOKIE_FILENAME --output $OUTPUT_FILENAME "$URL"
+
+
+## 6th Request(Select Product - Zzim(?), 여기부터는 JSON 형태로 확인 및 전송하므로 Shell script 로는 확인이 어렵다. hmmter project의 MainTest.java:364 부터의 로직 참고)
+REFERER=$URL;
+
+## shoppingResult, products[ { mallProductId, id, imageUrl, mallNo, crUrl, }, ..., ]
+
+## Start of Loop - 여러 products[].mallpid 에 대한 처리: zzimParam(+chpid) 생성 ==>
+## <== End of Loop
+
+## Start of Loop - 여러 products[].id 에 대한 처리: MID 값 매칭 확인 및 상품 선택 ==>
+## <== End of Loop
+
+## <== End of Loop Proc
